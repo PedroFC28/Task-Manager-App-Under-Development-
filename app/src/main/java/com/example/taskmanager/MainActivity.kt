@@ -33,6 +33,7 @@ import java.util.*
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.TextButton
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.text.style.TextAlign
 import androidx.lifecycle.ViewModel
 import java.time.Year
 import java.time.YearMonth
@@ -136,6 +137,8 @@ fun CalendarScreen(onDateSelected: (LocalDate) -> Unit, tasks: List<Task>) {
     var selectedYear by remember { mutableStateOf(Year.now().value) }
     var selectedMonth by remember { mutableStateOf(LocalDate.now().month) }
 
+    // week days
+    val weekDays = listOf("Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun")
 
     // Layout for the calendar screen including the month-year dropdown and grid for days.
     Column {
@@ -145,6 +148,22 @@ fun CalendarScreen(onDateSelected: (LocalDate) -> Unit, tasks: List<Task>) {
             onYearChange = { selectedYear = it },
             onMonthChange = { selectedMonth = it }
         )
+
+        // Header added with week days
+        Row(modifier = Modifier.fillMaxWidth()) {
+            for (day in weekDays) {
+                Text(
+                    text = day,
+                    modifier = Modifier
+                        .weight(1f)
+                        .padding(8.dp),
+                    textAlign = TextAlign.Center,
+                    fontWeight = FontWeight.Bold
+                )
+            }
+        }
+
+
 
 
         // Calculate days in the selected month and layout for each day.
